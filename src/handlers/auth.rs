@@ -1,5 +1,5 @@
 #[derive(Debug, Clone)]
-pub struct user {
+pub struct User {
     pub username: String,
     pub password: String,
 }
@@ -24,7 +24,9 @@ pub struct LoginPayload {
     pub password: String,
 }
 
-pub async fn login(mut req: Request<()>) -> tide::Result {
+use crate::state::AppState;
+
+pub async fn login(mut req: Request<AppState>) -> tide::Result {
     let payload: LoginPayload = req.body_json().await?;
     let users = get_users();
 
